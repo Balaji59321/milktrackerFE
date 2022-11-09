@@ -17,7 +17,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import "./../App.css";
 import EnhancedTable from "./Transactions";
 import { useState } from "react";
-import axios from "axios";
+import axios from "./../axios";
 import { useEffect } from "react";
 
 const Customer = () => {

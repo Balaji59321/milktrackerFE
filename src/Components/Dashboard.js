@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
+import axios from "./../axios";
 import { getDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 

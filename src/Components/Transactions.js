@@ -23,7 +23,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axios from "./../axios";
 import { setDate } from "date-fns";
 import { useState } from "react";
 
@@ -317,7 +317,7 @@ export default function EnhancedTable(props) {
       await setData(resp.data);
     };
     func();
-  }, [data, deleteHandler]);
+  }, [deleteHandler]);
 
   const [rows, setRows] = useState([]);
 

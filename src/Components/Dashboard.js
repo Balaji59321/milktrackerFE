@@ -123,7 +123,7 @@ const Dashboard = () => {
       >
         <Box
           sx={{
-            display: "flex",
+            display: "flex", 
             flexDirection: "column",
             margin: "auto",
             borderRadius: "3px",

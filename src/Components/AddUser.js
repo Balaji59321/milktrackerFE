@@ -6,7 +6,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import axios from "axios";
+import axios from "./../axios";
 import React, { useEffect } from "react";
 import Form from "./form";
 
@@ -23,7 +23,7 @@ const AddUser = ({ data, cancelData, updateData }) => {
       );
       cancelData();
     } else {
-      const resp = await axios.post("/user/create/", data);
+      const resp = await axios.post("user/create/", data);
       cancelData();
     }
   };

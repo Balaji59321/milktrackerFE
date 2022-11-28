@@ -19,8 +19,18 @@ import EnhancedTable from "./Transactions";
 import { useState } from "react";
 import axios from "./../axios";
 import { useEffect } from "react";
+import {ContextConsumer} from "./../Config";
+
 
 const Customer = () => {
+  const {user} = ContextConsumer();
+  const config = {
+    headers: {
+      "Content-Type" : "application/json",
+      Authorization : `Bearer ${user.token}`
+    } 
+  }
+  
   const [val, setVal] = useState({
     date: new Date().toLocaleString(),
     milktype: "cow",
@@ -38,7 +48,7 @@ const Customer = () => {
 
   useEffect(() => {
     const getAllCustomerNames = async () => {
-      const resp = await axios.get("user/get");
+      const resp = await axios.get("user/get",config);
       await setData(
         resp.data.map((ele) => ({ label: ele.name, phone: ele?.phone }))
       );
@@ -47,7 +57,7 @@ const Customer = () => {
   }, []);
 
   const submitForm = async (data) => {
-    const resp = await axios.post("record/create", data);
+    const resp = await axios.post("record/create", data,config);
     setVal({
       date: new Date().toLocaleString(),
       milktype: "cow",

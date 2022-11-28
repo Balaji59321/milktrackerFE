@@ -26,6 +26,7 @@ import { useLocation } from "react-router-dom";
 import axios from "./../axios";
 import { setDate } from "date-fns";
 import { useState } from "react";
+import {ContextConsumer} from "./../Config";
 
 function createData(
   _id,
@@ -261,6 +262,15 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function EnhancedTable(props) {
+
+  const {user} = ContextConsumer();
+  const config = {
+    headers: {
+      "Content-Type" : "application/json",
+      Authorization : `Bearer ${user.token}`
+    } 
+  }
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -307,13 +317,13 @@ export default function EnhancedTable(props) {
   const [data, setData] = useState([]);
 
   const deleteHandler = React.useCallback(async (data) => {
-    axios.delete("record/remove/" + data._id);
+    axios.delete("record/remove/" + data._id,config);
     await setData((prev) => prev.filter((ele) => ele._id !== data._id));
   }, []);
 
   React.useEffect(() => {
     const func = async () => {
-      let resp = await axios.get("record/get");
+      let resp = await axios.get("record/get",config);
       await setData(resp.data);
     };
     func();

@@ -2,8 +2,18 @@ import { Box, Button, Typography } from "@mui/material";
 import axios from "./../axios";
 import React, { useEffect, useState } from "react";
 import AddUser from "./AddUser";
+import {ContextConsumer} from "./../Config";
 
 const Users = () => {
+  
+  const {user} = ContextConsumer();
+  const config = {
+    headers: {
+      "Content-Type" : "application/json",
+      Authorization : `Bearer ${user.token}`
+    } 
+  }
+
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [modalData, setModalData] = useState({
@@ -23,7 +33,7 @@ const Users = () => {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      let resp = await axios.get("user/get");
+      let resp = await axios.get("user/get",config);
       await setUsers(resp.data);
     };
     getAllUsers();
@@ -45,7 +55,7 @@ const Users = () => {
   };
 
   const deleteHandler = async (id) => {
-    const resp = await axios.delete("user/remove/" + id);
+    const resp = await axios.delete("user/remove/" + id,config);
     console.log(resp.data);
     setUsers(users.filter((ele) => ele._id !== id));
   };

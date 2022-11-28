@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "./axios";
+import {ContextConsumer} from "./Config";
 
 const columns = [
   // { field: "id", headerName: "ID", width: 300 },
@@ -58,10 +59,17 @@ const columns = [
 export default function DataTable() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {user} = ContextConsumer();
+  const config = {
+    headers: {
+      "Content-Type" : "application/json",
+      Authorization : `Bearer ${user.token}`
+    } 
+  }
 
   useEffect(() => {
     const getData = async () => {
-      let data = await axios.get("record/get/");
+      let data = await axios.get("record/get/",config);
       data = data.data.map((ele) => ({ ...ele, id: ele._id }));
       await setData(data);
       await setLoading(false);

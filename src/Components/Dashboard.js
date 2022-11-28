@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import axios from "./../axios";
 import { getDate } from "date-fns";
 import React, { useEffect, useState } from "react";
+import {ContextConsumer} from "./../Config";
 
 const Dashboard = () => {
   const [totalCustomer, setTotalCustomer] = useState(0);
@@ -11,36 +12,45 @@ const Dashboard = () => {
   const [sellPrice, setSellPrice] = useState(0);
   const [cowQuantity, setCowQuantity] = useState(0);
   const [buffaloQuantity, setBuffaloQuantity] = useState(0);
+
+  const {user} = ContextConsumer();
+  console.log(user);
   useEffect(() => {
+    const config = {
+      headers: {
+        "Content-Type" : "application/json",
+        Authorization : `Bearer ${user.token}`
+      } 
+    }
     const getData = async () => {
       await setTotalCustomer(
         (
-          await axios.get("dashboard/getCustomer")
+          await axios.get("dashboard/getCustomer",config)
         ).data.count
       );
       await setTodayCustomer(
         (
-          await axios.get("dashboard/getTodayCustomer")
+          await axios.get("dashboard/getTodayCustomer",config)
         ).data.count
       );
       await setBuyPrice(
         (
-          await axios.get("dashboard/buyPrice")
+          await axios.get("dashboard/buyPrice",config)
         ).data.price
       );
       await setSellPrice(
         (
-          await axios.get("dashboard/sellPrice")
+          await axios.get("dashboard/sellPrice",config)
         ).data.price
       );
       await setCowQuantity(
         (
-          await axios.get("dashboard/cow")
+          await axios.get("dashboard/cow",config)
         ).data.quantity
       );
       await setBuffaloQuantity(
         (
-          await axios.get("dashboard/cow")
+          await axios.get("dashboard/cow",config)
         ).data.quantity
       );
     };
@@ -108,7 +118,7 @@ const Dashboard = () => {
         >
           <Typography variant="h6">% of Customer Visted</Typography>
           <Typography style={{ fontSize: "32px" }}>
-            {(todayCustomer / totalCustomer) * 100}
+            {(todayCustomer > 0 || totalCustomer>0) ? (todayCustomer / totalCustomer) * 100 : 0}
           </Typography>
         </Box>
       </Box>

@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import logo from "./../logo.png";
+import { useNavigate } from "react-router-dom";
 
 const pages = ["Dashboard", "Transactions", "Customers", "Admin", "Reports"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -21,6 +22,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,6 +38,11 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const logoutHandler = async () => {
+    const remove = await localStorage.removeItem("user");
+    navigate("/");
+  }
 
   return (
     <AppBar position="static">
@@ -116,7 +123,7 @@ const ResponsiveAppBar = () => {
             Soceity Milk
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+            <Link to="/dashboard" style={{ textDecoration: "none", color: "black" }}>
               <Button
                 key={"recod"}
                 onClick={handleCloseNavMenu}
@@ -218,7 +225,7 @@ const ResponsiveAppBar = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  {setting === "Logout" ? <Typography textAlign="center" onClick={logoutHandler}>{setting}</Typography> : <Typography textAlign="center">{setting}</Typography>}
                 </MenuItem>
               ))}
             </Menu>

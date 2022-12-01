@@ -23,7 +23,7 @@ import {ContextConsumer} from "./../Config";
 
 
 const Customer = () => {
-  const {user} = ContextConsumer();
+  const {user,price} = ContextConsumer();
   const config = {
     headers: {
       "Content-Type" : "application/json",
@@ -39,7 +39,7 @@ const Customer = () => {
     purity: "",
     param3: "",
     quantity: "",
-    buy_price: "34",
+    buy_price: price,
     sell_price: "45",
     profit: "11",
   });
@@ -66,7 +66,7 @@ const Customer = () => {
       purity: "",
       param3: "",
       quantity: "",
-      buy_price: "34",
+      buy_price: price,
       sell_price: "45",
       profit: "11",
     });
@@ -81,7 +81,7 @@ const Customer = () => {
       purity: "",
       param3: "",
       quantity: "",
-      buy_price: "34",
+      buy_price: price,
       sell_price: "45",
       profit: "11",
     });
@@ -286,7 +286,7 @@ const Customer = () => {
                   gap: "30px",
                 }}
               >
-                Buyer Price Value (in Rs) - <b>{10}</b>
+                Buyer Price Value (in Rs) - <b>{price}</b>
               </Typography>
               <Typography
                 style={{

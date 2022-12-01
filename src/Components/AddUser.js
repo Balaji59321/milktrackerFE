@@ -9,9 +9,18 @@ import {
 import axios from "./../axios";
 import React, { useEffect } from "react";
 import Form from "./form";
+import { ContextConsumer } from "../Config";
 
 const AddUser = ({ data, cancelData, updateData }) => {
   useEffect(() => {}, [data]);
+
+  const {user} = ContextConsumer();
+  const config = {
+    headers: {
+      "Content-Type" : "application/json",
+      Authorization : `Bearer ${user.token}`
+    } 
+  }
 
   const saveHandler = async () => {
     let id = data._id;
@@ -19,11 +28,12 @@ const AddUser = ({ data, cancelData, updateData }) => {
     if (id) {
       const resp = await axios.put(
         "user/update/" + id,
-        data
+        data,
+        config
       );
       cancelData();
     } else {
-      const resp = await axios.post("user/create/", data);
+      const resp = await axios.post("user/create/", data, config);
       cancelData();
     }
   };

@@ -6,6 +6,7 @@ const Context = React.createContext();
 
 const ContextProvider = ({children}) => {
     const [user,setUser] = useState();
+    const [price,setPrice] = useState(8);
     const history = useNavigate();
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const ContextProvider = ({children}) => {
         call();
     },[history])
 
-    return <Context.Provider value={{user,setUser}}>
+    return <Context.Provider value={{user,setUser,price,setPrice}}>
         {children}
     </Context.Provider>
 }

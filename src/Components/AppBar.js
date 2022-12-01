@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import logo from "./../logo.png";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Dashboard", "Transactions", "Customers", "Admin", "Reports"];
+const pages = ["Dashboard", "Transactions", "Customers", "Admin", "Reports", "Price"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
@@ -197,6 +197,28 @@ const ResponsiveAppBar = () => {
                 }}
               >
                 Users
+              </Button>
+            </Link>
+            <Link
+              to="/price"
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
+              <Button
+                key={"users"}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  fontSize: "18px",
+                  fontWeight: 600,
+                  textTransform: "capitalize",
+                }}
+              >
+                Price
               </Button>
             </Link>
           </Box>

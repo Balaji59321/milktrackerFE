@@ -7,6 +7,7 @@ import Dashboard from "./Components/Dashboard";
 import Users from "./Components/Users";
 import HomePage from "./Components/HomePage";
 import {ContextConsumer} from "./Config";
+import Price from "./Components/Price";
 
 function App() {
   const {user} = ContextConsumer();
@@ -19,6 +20,7 @@ function App() {
         {user && <Route exact path="/record" element={<Customer />} />}
         {user && <Route exact path="/history" element={<Transactions />} />}
         {user && <Route exact path="/users" element={<Users />} />}
+        {user && <Route exact path="/price" element={<Price />} />}
       </Routes>
     </>
   );
